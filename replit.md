@@ -106,10 +106,27 @@ This is a modern portfolio website built for Saukhyasheel Sardesai (Saukhya), an
 3. **Static Assets**: Client build output served from `/dist/public`
 4. **Server Bundle**: Single ESM file in `/dist/index.js`
 
+## Deployment Information
+
+### Render Deployment
+- Project configured for Render hosting
+- Build command: `npm install && npm run build`
+- Start command: `npm start`
+- Environment: Node.js production
+- Port: Automatically configured for Render (process.env.PORT)
+
+### Download Instructions
+1. Download project as ZIP from Replit
+2. Extract and push to GitHub repository
+3. Connect GitHub repo to Render
+4. Deploy with provided configuration
+
 ## Changelog
 ```
 Changelog:
-- June 23, 2025. Initial setup
+- June 23, 2025. Initial setup with modern React portfolio
+- June 23, 2025. Added functional contact form with data collection
+- June 23, 2025. Configured for Render deployment
 ```
 
 ## User Preferences
