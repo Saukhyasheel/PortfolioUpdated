@@ -7,6 +7,14 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { useTheme } from "./theme-provider";
+import profileImage from '../images/imgpro.jpeg';
+import whatsappImage from '../images/whatsappImage.png'; 
+import Sam from '../images/Samruddhi.png';
+import prer from '../images/Prerana.png';
+import gorq from '../images/Flask.png';
+import react from '../images/ChatFE.png';
+import recipe from '../images/Recipe.png'
+
 import { cn, scrollToSection, validateEmail } from "@/lib/utils";
 import { 
   Moon, 
@@ -269,21 +277,24 @@ function HeroSection() {
               <Mail className="mr-2 h-5 w-5" />
               Get In Touch
             </Button>
-            <Button
-              variant="outline"
-              className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white transition-all duration-300 px-8 py-4 text-lg"
-            >
-              <Download className="mr-2 h-5 w-5" />
-              Download CV
-            </Button>
+           <a href="/Saukhyasheel-CV.pdf" download>
+  <Button
+    variant="outline"
+    className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white transition-all duration-300 px-8 py-4 text-lg"
+  >
+    <Download className="mr-2 h-5 w-5" />
+    Download CV
+  </Button>
+</a>
+
           </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-subtle">
+      {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-subtle">
         <ChevronDown className="text-slate-400 h-6 w-6" />
-      </div>
+      </div> */}
     </section>
   );
 }
@@ -296,7 +307,7 @@ function AboutSection() {
     { name: "LLM Engineering", progress: 95, description: "LangChain, Prompt Engineering, Agent Design" },
     { name: "Frontend Development", progress: 90, description: "ReactJS, AngularJS, HTML/CSS/JS" },
     { name: "Backend Engineering", progress: 88, description: "Python Flask, FastAPI, REST APIs, .NET" },
-    { name: "Database & Vector Stores", progress: 85, description: "Redis, MongoDB Atlas Vector DB" },
+    { name: "Database & Vector Stores", progress: 85, description: "Redis, MongoDB Atlas Vector DB, SQL" },
   ];
 
   return (
@@ -308,10 +319,10 @@ function AboutSection() {
             <div className="relative w-80 h-80 mx-auto lg:w-96 lg:h-96">
               <div className="absolute inset-0 gradient-bg rounded-2xl transform rotate-6"></div>
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800" 
-                alt="Saukhyasheel Sardesai - AI Engineer" 
-                className="relative w-full h-full object-cover rounded-2xl shadow-2xl z-10"
-              />
+  src={profileImage} 
+  alt="Saukhyasheel Sardesai - AI Engineer" 
+  className="relative w-full h-full object-cover rounded-2xl shadow-2xl z-10"
+/>
             </div>
           </div>
 
@@ -356,8 +367,8 @@ function AboutSection() {
                       <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-300">Software Developer</h3>
                       <span className="text-blue-600 font-medium">2024 - Present</span>
                     </div>
-                    <p className="text-slate-600 dark:text-slate-400 mb-2">Manzeera Solutions, UK</p>
-                    <p className="text-slate-500 dark:text-slate-400">Building AI-assisted recipe platforms and intelligent UI for data-driven decision-making</p>
+                    <p className="text-slate-600 dark:text-slate-400 mb-2">mitochondria, Amsterdam</p>
+                    <p className="text-slate-500 dark:text-slate-400">Building AI Agents and automating workflows using Best-in-Class AI Technologies</p>
                   </div>
 
                   <div className="border-l-4 border-slate-300 dark:border-slate-600 pl-6">
@@ -517,27 +528,32 @@ function PortfolioSection() {
   const [filter, setFilter] = useState("all");
 
   const projects = [
+   {
+  title: "WhatsApp integrated AI Assistant",
+  description: "with document search capabilities, collects leads and sends summary to admin via mail.",
+  category: "ai",
+  image: whatsappImage,
+  tech: "Azure OpenAI, Gmail, Google Sheets, Redis, MongoDB vector store",
+  link: "#"
+}
+,
+
+
+
+
     {
-      title: "Cristae – WhatsApp AI Assistant",
-      description: "WhatsApp-based AI assistant with document search capabilities",
+      title: "Telegram integrated AI Assistant",
+      description: "collects users financial details, customises a investment plan and setup meeting with CEO.",
       category: "ai",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-      tech: "Azure OpenAI, Gmail, Google Sheets, Redis, MongoDB vector store",
-      link: "#"
-    },
-    {
-      title: "Samruddhi – Telegram Assistant",
-      description: "Financial automation bot with Google Calendar integration",
-      category: "ai",
-      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+      image: Sam,
       tech: "Intelligent Telegram bot for financial queries and automation",
       link: "#"
     },
     {
-      title: "Prerana – Real Estate Agent",
+      title: "Real Estate AI Agent",
       description: "Telegram-based property matching assistant",
       category: "ai",
-      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+      image:prer,
       tech: "Smart property matching with LangChain and MongoDB",
       link: "#"
     },
@@ -545,25 +561,25 @@ function PortfolioSection() {
       title: "Gorq AI Web API",
       description: "Python Flask API with dynamic user prompts and memory",
       category: "fullstack",
-      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+      image:gorq,
       tech: "Scalable Python Flask API serving AI requests via Groq LLM",
-      link: "#"
+      link: "https://github.com/Saukhyasheel/Chatbot1"
     },
     {
       title: "React Chatbot Frontend",
       description: "Multi-session UI with sidebar navigation and real-time chat",
       category: "frontend",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+      image:react,
       tech: "Multi-session chatbot UI with dynamic message history",
-      link: "#"
+      link: "https://github.com/Saukhyasheel/ChatbotFE"
     },
     {
       title: "Recipe Website UI Screens",
       description: "Comprehensive recipe platform with dashboard visualization",
       category: "frontend",
-      image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+      image: recipe,
       tech: "70+ responsive React screens for recipe management",
-      link: "#"
+      link: "https://screenrec.com/share/UOv7SaE0Ce"
     }
   ];
 
@@ -643,10 +659,13 @@ function PortfolioSection() {
 
         {/* View More Button */}
         <div className="text-center mt-12">
-          <Button className="gradient-bg text-white hover:shadow-xl hover:scale-105 transition-all duration-300 px-8 py-4">
-            <Github className="mr-2 h-5 w-5" />
-            View More on GitHub
-          </Button>
+        <a href="https://github.com/Saukhyasheel" target="_blank" rel="noopener noreferrer">
+  <Button className="gradient-bg text-white hover:shadow-xl hover:scale-105 transition-all duration-300 px-8 py-4">
+    <Github className="mr-2 h-5 w-5" />
+    View More on GitHub
+  </Button>
+</a>
+
         </div>
       </div>
     </section>
@@ -695,55 +714,93 @@ function ContactSection() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+
+
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
     
-    if (!validateForm()) {
-      return;
-    }
+  //   if (!validateForm()) {
+  //     return;
+  //   }
 
-    setIsSubmitting(true);
+  //   setIsSubmitting(true);
     
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+  //   try {
+  //     const response = await fetch('/api/contact', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      if (!response.ok) {
-        if (data.details) {
-          // Handle validation errors
-          const fieldErrors: Record<string, string> = {};
-          data.details.forEach((error: any) => {
-            fieldErrors[error.field] = error.message;
-          });
-          setErrors(fieldErrors);
-        } else {
-          console.error('Form submission error:', data.error);
-        }
-        return;
-      }
+  //     if (!response.ok) {
+  //       if (data.details) {
+      
+  //         const fieldErrors: Record<string, string> = {};
+  //         data.details.forEach((error: any) => {
+  //           fieldErrors[error.field] = error.message;
+  //         });
+  //         setErrors(fieldErrors);
+  //       } else {
+  //         console.error('Form submission error:', data.error);
+  //       }
+  //       return;
+  //     }
 
-      // Success
+      
+  //     setIsSubmitted(true);
+  //     setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+  //     console.log('Contact submission successful:', data);
+      
+  //     setTimeout(() => {
+  //       setIsSubmitted(false);
+  //     }, 5000);
+  //   } catch (error) {
+  //     console.error('Network error:', error);
+  //     setErrors({ submit: 'Network error. Please try again.' });
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!validateForm()) {
+    return;
+  }
+
+  setIsSubmitting(true);
+
+  try {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbxIbTJvXA-oe9BiXcnv7gwa-Mz4OYruUX22QmntQ4GIlCm12bYBHPAjJGWobCG8mVci/exec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
       setIsSubmitted(true);
       setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-      console.log('Contact submission successful:', data);
-      
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
-    } catch (error) {
-      console.error('Network error:', error);
-      setErrors({ submit: 'Network error. Please try again.' });
-    } finally {
-      setIsSubmitting(false);
+      setErrors({});
+
+      console.log('Contact submission successful');
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } else {
+      setErrors({ submit: 'Failed to submit. Please try again later.' });
     }
-  };
+  } catch (error) {
+    console.error('Network error:', error);
+    setErrors({ submit: 'Network error. Please try again.' });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -806,18 +863,25 @@ function ContactSection() {
               <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-600">
                 <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">Follow me on social media</p>
                 <div className="flex space-x-4">
-                  <Button size="icon" variant="outline" className="hover:bg-blue-500 hover:text-white transition-all duration-300">
-                    <Linkedin className="h-4 w-4" />
-                  </Button>
-                  <Button size="icon" variant="outline" className="hover:bg-gray-800 hover:text-white transition-all duration-300">
-                    <Github className="h-4 w-4" />
-                  </Button>
-                  <Button size="icon" variant="outline" className="hover:bg-green-500 hover:text-white transition-all duration-300">
-                    <MessageSquare className="h-4 w-4" />
-                  </Button>
-                  <Button size="icon" variant="outline" className="hover:bg-pink-500 hover:text-white transition-all duration-300">
-                    <Instagram className="h-4 w-4" />
-                  </Button>
+                  <a href="https://www.linkedin.com/in/saukhyasheel-sardesai/" target="_blank" rel="noopener noreferrer">
+  <Button size="icon" variant="outline" className="hover:bg-blue-500 hover:text-white transition-all duration-300">
+    <Linkedin className="h-4 w-4" />
+  </Button>
+</a>
+
+                  <a href="https://github.com/Saukhyasheel" target="_blank" rel="noopener noreferrer">
+  <Button size="icon" variant="outline" className="hover:bg-gray-800 hover:text-white transition-all duration-300">
+    <Github className="h-4 w-4" />
+  </Button>
+</a>
+
+               <a href="https://api.whatsapp.com/send/?phone=447384025477&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+  <Button size="icon" variant="outline" className="hover:bg-green-500 hover:text-white transition-all duration-300">
+    <MessageSquare className="h-4 w-4" />
+  </Button>
+</a>
+
+                  
                 </div>
               </div>
             </CardContent>
@@ -854,7 +918,7 @@ function ContactSection() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
+                    <div className="space-y-2">
                     <Label htmlFor="phone">Phone Number (Optional)</Label>
                     <Input
                       id="phone"
@@ -915,56 +979,6 @@ function ContactSection() {
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                       Sending Message...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="mr-2 h-4 w-4" />
-                      Send Message
-                    </>
-                  )}
-                </Button>
-
-                <div className="space-y-2">
-                  <Label htmlFor="subject">Subject</Label>
-                  <Input
-                    id="subject"
-                    value={formData.subject}
-                    onChange={(e) => handleInputChange("subject", e.target.value)}
-                    placeholder="Project inquiry or collaboration"
-                    className={errors.subject ? "border-red-500" : ""}
-                  />
-                  {errors.subject && <p className="text-red-500 text-sm">{errors.subject}</p>}
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    rows={6}
-                    value={formData.message}
-                    onChange={(e) => handleInputChange("message", e.target.value)}
-                    placeholder="Tell me about your project or how we can work together..."
-                    className={cn("resize-none", errors.message ? "border-red-500" : "")}
-                  />
-                  {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
-                </div>
-
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="w-full gradient-bg text-white hover:shadow-xl hover:scale-105 transition-all duration-300 py-4"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                      Sending...
-                    </>
-                  ) : isSubmitted ? (
-                    <>
-                      <div className="h-4 w-4 rounded-full bg-green-500 mr-2 flex items-center justify-center">
-                        <div className="h-2 w-2 bg-white rounded-full"></div>
-                      </div>
-                      Message Sent!
                     </>
                   ) : (
                     <>
