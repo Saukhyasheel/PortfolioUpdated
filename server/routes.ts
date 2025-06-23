@@ -1,53 +1,88 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { insertContactSchema } from "@shared/schema";
+import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission endpoint
   app.post("/api/contact", async (req, res) => {
     try {
-      const { name, email, subject, message } = req.body;
+      // Validate the request body using Zod schema
+      const validationResult = insertContactSchema.safeParse(req.body);
       
-      // Validate required fields
-      if (!name || !email || !subject || !message) {
+      if (!validationResult.success) {
+        const errors = validationResult.error.errors.map(err => ({
+          field: err.path.join('.'),
+          message: err.message
+        }));
+        
         return res.status(400).json({ 
-          error: "All fields are required" 
+          error: "Validation failed",
+          details: errors
         });
       }
 
-      // Validate email format
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        return res.status(400).json({ 
-          error: "Invalid email format" 
-        });
-      }
+      const contactData = validationResult.data;
 
-      // In a real application, you would:
-      // 1. Save the contact form data to a database
-      // 2. Send an email notification
-      // 3. Send an auto-reply to the user
+      // Save the contact form data to storage
+      const savedContact = await storage.createContact(contactData);
       
-      // For now, we'll just log the contact form data
-      console.log("Contact form submission:", {
-        name,
-        email,
-        subject,
-        message,
-        timestamp: new Date().toISOString()
+      console.log("Contact form submission saved:", {
+        id: savedContact.id,
+        name: savedContact.name,
+        email: savedContact.email,
+        subject: savedContact.subject,
+        timestamp: savedContact.createdAt.toISOString()
       });
 
       // Simulate processing time
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 800));
 
       res.json({ 
         success: true, 
-        message: "Thank you for your message! I'll get back to you soon." 
+        message: "Thank you for your message! I'll get back to you soon.",
+        contactId: savedContact.id
       });
     } catch (error) {
       console.error("Contact form error:", error);
       res.status(500).json({ 
         error: "An error occurred while sending your message. Please try again." 
+      });
+    }
+  });
+
+  // Get all contact submissions (for admin purposes)
+  app.get("/api/contacts", async (req, res) => {
+    try {
+      const contacts = await storage.getContacts();
+      res.json({ contacts });
+    } catch (error) {
+      console.error("Get contacts error:", error);
+      res.status(500).json({ 
+        error: "An error occurred while fetching contacts." 
+      });
+    }
+  });
+
+  // Get specific contact by ID
+  app.get("/api/contacts/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ error: "Invalid contact ID" });
+      }
+
+      const contact = await storage.getContact(id);
+      if (!contact) {
+        return res.status(404).json({ error: "Contact not found" });
+      }
+
+      res.json({ contact });
+    } catch (error) {
+      console.error("Get contact error:", error);
+      res.status(500).json({ 
+        error: "An error occurred while fetching the contact." 
       });
     }
   });

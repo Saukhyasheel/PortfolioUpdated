@@ -658,6 +658,7 @@ function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: ""
   });
@@ -676,6 +677,10 @@ function ContactSection() {
       newErrors.email = "Email is required";
     } else if (!validateEmail(formData.email)) {
       newErrors.email = "Please enter a valid email";
+    }
+
+    if (!formData.phone && formData.phone.trim() === "") {
+      // Phone is optional, no validation needed
     }
 
     if (!formData.subject.trim()) {
@@ -699,16 +704,45 @@ function ContactSection() {
 
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (data.details) {
+          // Handle validation errors
+          const fieldErrors: Record<string, string> = {};
+          data.details.forEach((error: any) => {
+            fieldErrors[error.field] = error.message;
+          });
+          setErrors(fieldErrors);
+        } else {
+          console.error('Form submission error:', data.error);
+        }
+        return;
+      }
+
+      // Success
       setIsSubmitted(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      console.log('Contact submission successful:', data);
       
       setTimeout(() => {
         setIsSubmitted(false);
-      }, 3000);
-    }, 2000);
+      }, 5000);
+    } catch (error) {
+      console.error('Network error:', error);
+      setErrors({ submit: 'Network error. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -818,6 +852,77 @@ function ContactSection() {
                     {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                   </div>
                 </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Phone Number (Optional)</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange("phone", e.target.value)}
+                      placeholder="+44 1234 567890"
+                      className={errors.phone ? "border-red-500" : ""}
+                    />
+                    {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="subject">Subject</Label>
+                    <Input
+                      id="subject"
+                      value={formData.subject}
+                      onChange={(e) => handleInputChange("subject", e.target.value)}
+                      placeholder="Project inquiry, collaboration, etc."
+                      className={errors.subject ? "border-red-500" : ""}
+                    />
+                    {errors.subject && <p className="text-red-500 text-sm">{errors.subject}</p>}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea
+                    id="message"
+                    rows={6}
+                    value={formData.message}
+                    onChange={(e) => handleInputChange("message", e.target.value)}
+                    placeholder="Tell me about your project, requirements, or any questions you have..."
+                    className={errors.message ? "border-red-500" : ""}
+                  />
+                  {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
+                </div>
+
+                {errors.submit && (
+                  <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                    <p className="text-red-600 dark:text-red-400 text-sm">{errors.submit}</p>
+                  </div>
+                )}
+
+                {isSubmitted && (
+                  <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+                    <p className="text-green-600 dark:text-green-400 text-sm font-medium">
+                      Thank you for your message! I'll get back to you soon.
+                    </p>
+                  </div>
+                )}
+
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full gradient-bg text-white hover:shadow-xl transition-all duration-300 py-3"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Sending Message...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="mr-2 h-4 w-4" />
+                      Send Message
+                    </>
+                  )}
+                </Button>
 
                 <div className="space-y-2">
                   <Label htmlFor="subject">Subject</Label>
