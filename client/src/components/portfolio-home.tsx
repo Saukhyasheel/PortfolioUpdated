@@ -303,11 +303,11 @@ function HeroSection() {
 function AboutSection() {
   const [activeTab, setActiveTab] = useState("skills");
 
-  const skills = [
-    { name: "LLM Engineering", progress: 95, description: "LangChain, Prompt Engineering, Agent Design" },
-    { name: "Frontend Development", progress: 90, description: "ReactJS, AngularJS, HTML/CSS/JS" },
-    { name: "Backend Engineering", progress: 88, description: "Python Flask, FastAPI, REST APIs, .NET" },
-    { name: "Database & Vector Stores", progress: 85, description: "Redis, MongoDB Atlas Vector DB, SQL" },
+ const skills = [
+    { name: "LLM Engineering", progress: 75, description: "LangChain, Prompt Engineering, Agent Design" },
+    { name: "Frontend Development", progress: 60, description: "ReactJS, AngularJS, HTML/CSS/JS" },
+    { name: "Backend Engineering", progress: 70, description: "Python Flask, FastAPI, REST APIs, .NET" },
+    { name: "Database & Vector Stores", progress: 65, description: "Redis, MongoDB Atlas Vector DB, SQL" },
   ];
 
   return (
@@ -351,7 +351,7 @@ function AboutSection() {
                     <div key={index} className="space-y-2">
                       <div className="flex justify-between">
                         <span className="font-semibold text-slate-700 dark:text-slate-300">{skill.name}</span>
-                        <span className="text-blue-600 font-medium">{skill.progress}%</span>
+                        {/* <span className="text-blue-600 font-medium">{skill.progress}%</span> */}
                       </div>
                       <Progress value={skill.progress} className="h-2" />
                       <p className="text-sm text-slate-500 dark:text-slate-400">{skill.description}</p>
@@ -364,16 +364,16 @@ function AboutSection() {
                 <div className="space-y-6">
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                      <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-300">Software Developer</h3>
+                      <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-300">AI / Software Developer</h3>
                       <span className="text-blue-600 font-medium">2024 - Present</span>
                     </div>
-                    <p className="text-slate-600 dark:text-slate-400 mb-2">mitochondria, Amsterdam</p>
+                    <p className="text-slate-600 dark:text-slate-400 mb-2">Freelancing</p>
                     <p className="text-slate-500 dark:text-slate-400">Building AI Agents and automating workflows using Best-in-Class AI Technologies</p>
                   </div>
 
                   <div className="border-l-4 border-slate-300 dark:border-slate-600 pl-6">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                      <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-300">Senior Software Developer</h3>
+                      <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-300">Software Developer</h3>
                       <span className="text-slate-600 font-medium">2021 - 2023</span>
                     </div>
                     <p className="text-slate-600 dark:text-slate-400 mb-2">Capgemini, India</p>
@@ -422,7 +422,7 @@ function ServicesSection() {
     {
       icon: Workflow,
       title: "Workflow Automation", 
-      description: "Automating business processes using n8n, Gmail API, Google Calendar, and Redis memory to streamline operations and reduce manual effort.",
+      description: "Automating business processes using Langflow, Microsoft Logic Apps, n8n, Gmail API, Google Calendar, and Redis memory to streamline operations and reduce manual effort.",
       gradient: "from-cyan-500 to-blue-500"
     },
     {
@@ -543,20 +543,21 @@ function PortfolioSection() {
 
     {
       title: "Telegram integrated AI Assistant",
-      description: "collects users financial details, customises a investment plan and setup meeting with CEO.",
+      description: "collects users details, customises a  plan and setup meeting with staff.",
       category: "ai",
       image: Sam,
-      tech: "Intelligent Telegram bot for financial queries and automation",
+      tech: "Azure OpenAI, Google Calender, Perplexity, Azure AI Search",
       link: "#"
     },
-    {
-      title: "Real Estate AI Agent",
-      description: "Telegram-based property matching assistant",
-      category: "ai",
-      image:prer,
-      tech: "Smart property matching with LangChain and MongoDB",
-      link: "#"
-    },
+    
+{
+  title: "Job Search AI Agent",
+  description: "Telegram-based assistant that finds relevant jobs using search APIs and filters based on user preferences.",
+  category: "ai",
+  image:prer,
+  tech: "SerpApi, LangChain, MongoDB, Telegram Bot API",
+  link: "#"
+},
     {
       title: "Gorq AI Web API",
       description: "Python Flask API with dynamic user prompts and memory",
